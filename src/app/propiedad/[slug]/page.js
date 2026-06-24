@@ -131,6 +131,7 @@ export default async function PropiedadPage({ params }) {
           zoom={15}
           titulo={p.titulo}
           direccion={p.direccion}
+          className="h-[55svh] min-h-[20rem] border border-linea"
         />
       </section>
 

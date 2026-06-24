@@ -54,19 +54,17 @@ export default function PropiedadCard({ propiedad, indice = 0, prioridad = false
         {/* hairline arcilla que crece en hover (detalle de marca) */}
         <div className="mt-4 h-px w-10 bg-arcilla transition-all duration-300 group-hover:w-20" />
 
-        <div className="mt-4 flex items-end justify-between gap-3">
-          <p className="font-display text-xl font-semibold text-arcilla">
-            {formatPrecio(propiedad)}
-          </p>
-          <ul className="flex shrink-0 items-center gap-3 font-body text-xs text-tinta-suave">
-            {specs(propiedad).map((s) => (
-              <li key={s.l} className="whitespace-nowrap">
-                <span className="font-semibold">{s.n}</span>{" "}
-                <span className="text-tenue">{s.l}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <p className="mt-4 font-display text-xl font-semibold text-arcilla">
+          {formatPrecio(propiedad)}
+        </p>
+        <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-body text-xs text-tinta-suave">
+          {specs(propiedad).map((s) => (
+            <li key={s.l} className="whitespace-nowrap">
+              <span className="font-semibold">{s.n}</span>{" "}
+              <span className="text-tenue">{s.l}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </Link>
   );

@@ -8,6 +8,7 @@ export default function Mapa({
   zoom = 13,
   titulo = "Nuestra zona",
   direccion = "Medellín, Colombia",
+  className = "h-[55svh] min-h-[20rem]", // el llamador decide la altura
 }) {
   const [activo, setActivo] = useState(false); // mapa interactivo tras doble clic
   const [pista, setPista] = useState(false); // muestra "doble clic para interactuar"
@@ -45,7 +46,7 @@ export default function Mapa({
   return (
     <section
       aria-label={`Mapa · ${titulo}`}
-      className="relative h-[60svh] min-h-[20rem] w-full overflow-hidden rounded-[1.5rem] border border-linea bg-papel-3"
+      className={`relative w-full overflow-hidden rounded-[1.1rem] bg-papel-3 ${className}`}
       onWheel={relock}
     >
       <iframe

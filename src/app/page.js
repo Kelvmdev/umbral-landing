@@ -3,30 +3,7 @@ import Link from "next/link";
 import Mapa from "@/components/Mapa";
 import PropiedadCard from "@/components/PropiedadCard";
 import { propiedades } from "@/lib/propiedades";
-
-// ponytail: FAQ inline; en Fase 2 vendrá de sitio.json (y a FAQPage JSON-LD en Fase 7)
-const faqs = [
-  {
-    q: "¿Cómo agendo una visita?",
-    a: "Escríbenos por WhatsApp o por el formulario de contacto y coordinamos un horario que te sirva. La visita no tiene ningún costo.",
-  },
-  {
-    q: "¿Las propiedades del catálogo están disponibles?",
-    a: "Sí. Mantenemos el catálogo al día; si una propiedad se reserva o se vende, la retiramos o la marcamos como no disponible.",
-  },
-  {
-    q: "¿Puedo comprar con crédito hipotecario?",
-    a: "Claro. Te orientamos con los requisitos y te conectamos con entidades para que compares opciones de financiación.",
-  },
-  {
-    q: "¿Cobran comisión por mostrar una propiedad?",
-    a: "No. Acompañarte en la búsqueda y las visitas es gratis. Solo se cobra la comisión habitual al cerrar una operación.",
-  },
-  {
-    q: "¿En qué zonas tienen propiedades?",
-    a: "Trabajamos en Medellín y el Valle de Aburrá: Laureles, El Poblado, Envigado, Sabaneta, Belén y alrededores.",
-  },
-];
+import { faqs } from "@/lib/faqs";
 
 export default function Home() {
   return (
@@ -97,50 +74,52 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Ubicación ────────────────────────────────────────── */}
-      <section id="ubicacion" className="mx-auto max-w-7xl px-[6%] py-[6vh] lg:px-[4%]">
-        <h2 className="mb-6 font-display text-3xl font-semibold text-tinta sm:text-4xl">
-          Dónde estamos
-        </h2>
-        <Mapa
-          lat={6.2117}
-          lon={-75.5688}
-          zoom={12}
-          titulo="Umbral · Medellín"
-          direccion="Valle de Aburrá, Antioquia"
-        />
-      </section>
-
-      {/* ── FAQ ──────────────────────────────────────────────── */}
-      <section id="faq" className="mx-auto max-w-3xl px-[6%] py-[6vh] lg:px-[4%]">
-        <h2 className="mb-8 font-display text-3xl font-semibold text-tinta sm:text-4xl">
-          Preguntas frecuentes
-        </h2>
-        <div className="divide-y divide-linea border-y border-linea">
-          {faqs.map((f) => (
-            <details key={f.q} className="group py-4">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-lg font-semibold text-tinta [&::-webkit-details-marker]:hidden">
-                {f.q}
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  aria-hidden="true"
-                  className="shrink-0 text-arcilla transition-transform duration-300 group-open:rotate-45"
+      {/* ── Ubicación + Preguntas (dos columnas iguales) ─────── */}
+      <section
+        id="ubicacion"
+        className="mx-auto grid max-w-7xl gap-6 px-[6%] py-[6vh] lg:grid-cols-2 lg:px-[4%]"
+      >
+        {/* Tarjeta: Preguntas (resumen → /preguntas) */}
+        <div
+          id="faq"
+          className="flex flex-col rounded-[1.5rem] border border-linea bg-papel-2 p-6 sm:p-8 lg:h-[32rem]"
+        >
+          <h2 className="font-display text-2xl font-semibold text-tinta sm:text-3xl">
+            Preguntas frecuentes
+          </h2>
+          <ul className="mt-6 flex-1 divide-y divide-linea border-t border-linea">
+            {faqs.slice(0, 5).map((f) => (
+              <li key={f.q}>
+                <Link
+                  href="/preguntas"
+                  className="group flex items-center justify-between gap-4 py-3.5 font-display text-base font-semibold text-tinta transition-colors hover:text-arcilla"
                 >
-                  <line x1="12" y1="5" x2="12" y2="19" />
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                </svg>
-              </summary>
-              <p className="mt-3 max-w-prose font-body text-base leading-relaxed text-tenue">
-                {f.a}
-              </p>
-            </details>
-          ))}
+                  {f.q}
+                  <span className="shrink-0 text-arcilla transition-transform group-hover:translate-x-1">
+                    →
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <Link
+            href="/preguntas"
+            className="mt-6 self-start rounded-full bg-tinta px-6 py-2.5 font-body text-sm font-medium text-papel transition active:scale-95 hover:bg-tinta-suave"
+          >
+            Ver todas las preguntas
+          </Link>
+        </div>
+
+        {/* Tarjeta: Mapa (mismo marco, misma altura) */}
+        <div className="rounded-[1.5rem] border border-linea bg-papel-2 p-3 lg:h-[32rem]">
+          <Mapa
+            lat={6.2117}
+            lon={-75.5688}
+            zoom={12}
+            titulo="Umbral · Medellín"
+            direccion="Valle de Aburrá, Antioquia"
+            className="h-full min-h-[18rem]"
+          />
         </div>
       </section>
 
