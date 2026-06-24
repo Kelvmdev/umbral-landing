@@ -28,7 +28,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es" className={`${fraunces.variable} ${hanken.variable}`}>
-      <body className="min-h-screen antialiased">
+      {/* suppressHydrationWarning: extensiones del navegador (p.ej. ColorZilla)
+          inyectan atributos en <body> y causan un falso hydration mismatch */}
+      <body className="min-h-screen antialiased" suppressHydrationWarning>
         <Chrome>{children}</Chrome>
       </body>
     </html>

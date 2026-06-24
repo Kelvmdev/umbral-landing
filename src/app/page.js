@@ -4,11 +4,35 @@ import Mapa from "@/components/Mapa";
 import PropiedadCard from "@/components/PropiedadCard";
 import { propiedades } from "@/lib/propiedades";
 
+// ponytail: FAQ inline; en Fase 2 vendrá de sitio.json (y a FAQPage JSON-LD en Fase 7)
+const faqs = [
+  {
+    q: "¿Cómo agendo una visita?",
+    a: "Escríbenos por WhatsApp o por el formulario de contacto y coordinamos un horario que te sirva. La visita no tiene ningún costo.",
+  },
+  {
+    q: "¿Las propiedades del catálogo están disponibles?",
+    a: "Sí. Mantenemos el catálogo al día; si una propiedad se reserva o se vende, la retiramos o la marcamos como no disponible.",
+  },
+  {
+    q: "¿Puedo comprar con crédito hipotecario?",
+    a: "Claro. Te orientamos con los requisitos y te conectamos con entidades para que compares opciones de financiación.",
+  },
+  {
+    q: "¿Cobran comisión por mostrar una propiedad?",
+    a: "No. Acompañarte en la búsqueda y las visitas es gratis. Solo se cobra la comisión habitual al cerrar una operación.",
+  },
+  {
+    q: "¿En qué zonas tienen propiedades?",
+    a: "Trabajamos en Medellín y el Valle de Aburrá: Laureles, El Poblado, Envigado, Sabaneta, Belén y alrededores.",
+  },
+];
+
 export default function Home() {
   return (
     <main id="contenido">
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="mx-auto grid max-w-7xl items-center gap-[6%] px-[6%] py-[8vh] lg:grid-cols-2 lg:px-[4%] lg:py-[12vh]">
+      <section className="mx-auto grid max-w-7xl items-center gap-[6%] px-[6%] py-[6vh] lg:min-h-[calc(100svh-4.6rem)] lg:grid-cols-2 lg:px-[4%] lg:py-0">
         <div>
           <p className="font-body text-xs uppercase tracking-[0.4em] text-tenue">
             Catálogo · 2026
@@ -36,13 +60,14 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Imagen enmarcada por el arco = la firma */}
-        <div className="relative mx-auto aspect-[3/4] w-full max-w-md overflow-hidden rounded-t-[50%_22%] border border-linea">
+        {/* Imagen enmarcada por el arco = la firma. Altura atada al viewport
+            para que SIEMPRE quepa en pantalla sin recortarse de más. */}
+        <div className="relative mx-auto h-[42vh] max-h-[24rem] w-full max-w-sm overflow-hidden rounded-t-[50%_20%] border border-linea lg:h-[68vh] lg:max-h-[34rem]">
           <Image
             src="https://picsum.photos/seed/umbral-hero/900/1200"
             alt="Hogar acogedor iluminado por luz natural"
             fill
-            sizes="(max-width: 1024px) 100vw, 40vw"
+            sizes="(max-width: 1024px) 90vw, 40vw"
             className="object-cover"
             priority
           />
@@ -84,6 +109,39 @@ export default function Home() {
           titulo="Umbral · Medellín"
           direccion="Valle de Aburrá, Antioquia"
         />
+      </section>
+
+      {/* ── FAQ ──────────────────────────────────────────────── */}
+      <section id="faq" className="mx-auto max-w-3xl px-[6%] py-[6vh] lg:px-[4%]">
+        <h2 className="mb-8 font-display text-3xl font-semibold text-tinta sm:text-4xl">
+          Preguntas frecuentes
+        </h2>
+        <div className="divide-y divide-linea border-y border-linea">
+          {faqs.map((f) => (
+            <details key={f.q} className="group py-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-lg font-semibold text-tinta [&::-webkit-details-marker]:hidden">
+                {f.q}
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  aria-hidden="true"
+                  className="shrink-0 text-arcilla transition-transform duration-300 group-open:rotate-45"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </summary>
+              <p className="mt-3 max-w-prose font-body text-base leading-relaxed text-tenue">
+                {f.a}
+              </p>
+            </details>
+          ))}
+        </div>
       </section>
 
       {/* ── Contacto (formulario llega en Fase 3) ────────────── */}

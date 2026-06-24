@@ -3,6 +3,7 @@ import Link from "next/link";
 const navegacion = [
   { href: "/#propiedades", texto: "Propiedades" },
   { href: "/#ubicacion", texto: "Ubicación" },
+  { href: "/#faq", texto: "Preguntas" },
   { href: "/#contacto", texto: "Contacto" },
 ];
 
