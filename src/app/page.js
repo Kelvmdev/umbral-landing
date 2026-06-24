@@ -4,6 +4,7 @@ import Mapa from "@/components/Mapa";
 import PropiedadCard from "@/components/PropiedadCard";
 import { propiedades } from "@/lib/propiedades";
 import { faqs } from "@/lib/faqs";
+import { btnPrimario, btnSecundario, btnArcilla } from "@/lib/estilos";
 
 export default function Home() {
   return (
@@ -22,16 +23,10 @@ export default function Home() {
             Aburrá. Encuentra el espacio donde empieza tu próxima historia.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <Link
-              href="#propiedades"
-              className="rounded-full bg-tinta px-7 py-3 font-body text-sm font-medium text-papel transition active:scale-95 hover:bg-tinta-suave"
-            >
+            <Link href="#propiedades" className={btnPrimario}>
               Ver propiedades
             </Link>
-            <Link
-              href="#contacto"
-              className="rounded-full border border-tinta px-7 py-3 font-body text-sm font-medium text-tinta transition active:scale-95 hover:bg-papel-2"
-            >
+            <Link href="#contacto" className={btnSecundario}>
               Hablar con un asesor
             </Link>
           </div>
@@ -104,10 +99,7 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <Link
-            href="/preguntas"
-            className="mt-6 self-start rounded-full bg-tinta px-6 py-2.5 font-body text-sm font-medium text-papel transition active:scale-95 hover:bg-tinta-suave"
-          >
+          <Link href="/preguntas" className={`${btnPrimario} mt-6 self-start`}>
             Ver todas las preguntas
           </Link>
         </div>
@@ -141,7 +133,7 @@ export default function Home() {
             href="https://wa.me/573000000000"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full bg-arcilla px-7 py-3 font-body text-sm font-medium text-papel transition active:scale-95 hover:bg-arcilla-honda"
+            className={btnArcilla}
           >
             Escribir por WhatsApp
           </a>

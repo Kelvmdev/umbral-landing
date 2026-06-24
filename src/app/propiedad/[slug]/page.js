@@ -7,6 +7,7 @@ import {
   slugsPropiedades,
   formatPrecio,
 } from "@/lib/propiedades";
+import { btnArcilla } from "@/lib/estilos";
 
 // Pre-genera una página estática por cada propiedad (SSG)
 export function generateStaticParams() {
@@ -144,7 +145,7 @@ export default async function PropiedadPage({ params }) {
           href="https://wa.me/573000000000"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-5 inline-block rounded-full bg-arcilla px-7 py-3 font-body text-sm font-medium text-papel transition active:scale-95 hover:bg-arcilla-honda"
+          className={`${btnArcilla} mt-5`}
         >
           Agendar una visita
         </a>

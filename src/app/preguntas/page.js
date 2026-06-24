@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { faqs } from "@/lib/faqs";
+import { btnArcilla } from "@/lib/estilos";
 
 export const metadata = {
   title: "Preguntas frecuentes",
@@ -62,7 +63,7 @@ export default function PreguntasPage() {
           href="https://wa.me/573000000000"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-5 inline-block rounded-full bg-arcilla px-7 py-3 font-body text-sm font-medium text-papel transition active:scale-95 hover:bg-arcilla-honda"
+          className={`${btnArcilla} mt-5`}
         >
           Escríbenos por WhatsApp
         </a>
