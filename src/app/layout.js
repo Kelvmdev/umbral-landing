@@ -25,12 +25,20 @@ export const metadata = {
     "Catálogo de propiedades en venta y arriendo. Cruza el umbral hacia tu próximo hogar.",
 };
 
+// Aplica el tema guardado (o el del sistema) ANTES de pintar → sin parpadeo
+const scriptTema = `(function(){try{var t=localStorage.getItem('tema');if(t==='oscuro'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}}catch(e){}})();`;
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="es" className={`${fraunces.variable} ${hanken.variable}`}>
-      {/* suppressHydrationWarning: extensiones del navegador (p.ej. ColorZilla)
-          inyectan atributos en <body> y causan un falso hydration mismatch */}
+    <html
+      lang="es"
+      className={`${fraunces.variable} ${hanken.variable}`}
+      suppressHydrationWarning
+    >
+      {/* suppressHydrationWarning: el script de tema y extensiones del navegador
+          (p.ej. ColorZilla) cambian atributos → falso hydration mismatch */}
       <body className="min-h-screen antialiased" suppressHydrationWarning>
+        <script dangerouslySetInnerHTML={{ __html: scriptTema }} />
         <Chrome>{children}</Chrome>
       </body>
     </html>

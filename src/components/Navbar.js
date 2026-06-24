@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 const enlaces = [
   { href: "/#propiedades", texto: "Propiedades" },
@@ -26,7 +27,8 @@ export default function Navbar() {
           Umbral
         </Link>
 
-        {/* Enlaces en desktop */}
+        {/* Lado derecho: enlaces + tema + hamburguesa */}
+        <div className="flex items-center gap-1 md:gap-6">
         <ul className="hidden items-center gap-[2.5rem] md:flex">
           {enlaces.map((e) => (
             <li key={e.href}>
@@ -39,6 +41,8 @@ export default function Navbar() {
             </li>
           ))}
         </ul>
+
+        <ThemeToggle />
 
         {/* Botón hamburguesa en móvil */}
         <button
@@ -73,6 +77,7 @@ export default function Navbar() {
             )}
           </svg>
         </button>
+        </div>
       </nav>
 
       {/* Menú móvil desplegable */}

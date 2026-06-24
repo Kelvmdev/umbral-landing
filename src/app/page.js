@@ -37,17 +37,19 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Imagen enmarcada por el arco = la firma. Altura atada al viewport
-            para que SIEMPRE quepa en pantalla sin recortarse de más. */}
-        <div className="relative mx-auto h-[42vh] max-h-[24rem] w-full max-w-sm overflow-hidden rounded-t-[50%_20%] border border-linea lg:h-[68vh] lg:max-h-[34rem]">
-          <Image
-            src="https://picsum.photos/seed/umbral-hero/900/1200"
-            alt="Hogar acogedor iluminado por luz natural"
-            fill
-            sizes="(max-width: 1024px) 90vw, 40vw"
-            className="object-cover"
-            priority
-          />
+        {/* Mismo estilo de tarjeta: marco de papel + arco interno (la firma).
+            Altura atada al viewport para que SIEMPRE quepa en pantalla. */}
+        <div className="mx-auto w-full max-w-sm rounded-[1.5rem] border border-linea bg-papel-2 p-3">
+          <div className="relative h-[38vh] max-h-[22rem] w-full overflow-hidden rounded-[0.6rem] rounded-t-[1.6rem] lg:h-[62vh] lg:max-h-[32rem]">
+            <Image
+              src="https://picsum.photos/seed/umbral-hero/900/1200"
+              alt="Hogar acogedor iluminado por luz natural"
+              fill
+              sizes="(max-width: 1024px) 90vw, 40vw"
+              className="object-cover"
+              priority
+            />
+          </div>
         </div>
       </section>
 

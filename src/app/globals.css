@@ -30,10 +30,37 @@
   --font-body: var(--font-hanken);      /* sans humanista, cuerpo */
 }
 
+/* ── Modo oscuro ──────────────────────────────────────────────────────────
+   Solo se redefinen los MISMOS tokens; cada utilidad (bg-papel, text-tinta…)
+   toma el valor nuevo sin tocar ningún componente. Se activa con .dark en
+   <html>. Mantiene la calidez (no negro puro). */
+.dark {
+  --color-tinta: #ece2cf;        /* el texto se vuelve claro */
+  --color-tinta-suave: #d6cbb6;
+
+  --color-papel: #1e1813;        /* fondo casi negro pero cálido */
+  --color-papel-2: #2a231b;      /* tarjetas, superficies elevadas */
+  --color-papel-3: #161109;      /* bandas, zonas hundidas */
+
+  --color-arcilla: #cf7048;      /* terracota un punto más viva en oscuro */
+  --color-arcilla-honda: #b1502b;
+
+  --color-oliva: #8a8f63;
+
+  --color-linea: #3a322a;
+  --color-tenue: #a99c87;        /* texto secundario (AA sobre fondo oscuro) */
+}
+
 body {
   background: var(--color-papel);
   color: var(--color-tinta);
   font-family: var(--font-hanken), system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* En oscuro, el mapa de Google se invierte para no quemar la vista (tema 02) */
+.dark iframe[title^="Mapa"] {
+  filter: invert(0.92) hue-rotate(180deg);
 }
 
 /* Respeto a quien apaga animaciones en su SO (tema 08) */
