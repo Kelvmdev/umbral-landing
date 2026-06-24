@@ -16,9 +16,18 @@
     "ciudad": "Medellín, Colombia"
   },
   "redes": [
-    { "nombre": "Instagram", "url": "https://instagram.com" },
-    { "nombre": "Facebook", "url": "https://facebook.com" },
-    { "nombre": "WhatsApp", "url": "https://wa.me/573000000000" }
+    {
+      "nombre": "Instagram",
+      "url": "https://instagram.com"
+    },
+    {
+      "nombre": "Facebook",
+      "url": "https://facebook.com"
+    },
+    {
+      "nombre": "WhatsApp",
+      "url": "https://wa.me/573000000000"
+    }
   ],
   "ubicacion": {
     "lat": 6.2117,

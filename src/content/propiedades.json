@@ -15,7 +15,12 @@
     "lat": 6.2459,
     "lon": -75.5946,
     "descripcion": "Casa de dos niveles con patio interior y mucha luz natural. Cocina abierta, estudio y terraza con vista a los árboles del barrio.",
-    "caracteristicas": ["Patio interior", "Terraza", "Estudio", "Cocina abierta"],
+    "caracteristicas": [
+      "Patio interior",
+      "Terraza",
+      "Estudio",
+      "Cocina abierta"
+    ],
     "imagenes": [
       "https://picsum.photos/seed/laureles-1/1200/800",
       "https://picsum.photos/seed/laureles-2/1200/800",
@@ -39,7 +44,12 @@
     "lat": 6.2086,
     "lon": -75.5659,
     "descripcion": "Apartamento luminoso en piso alto con balcón y vista a la ciudad. Zonas comunes con gimnasio y terraza social.",
-    "caracteristicas": ["Balcón", "Gimnasio", "Vista ciudad", "Portería 24h"],
+    "caracteristicas": [
+      "Balcón",
+      "Gimnasio",
+      "Vista ciudad",
+      "Portería 24h"
+    ],
     "imagenes": [
       "https://picsum.photos/seed/poblado-1/1200/800",
       "https://picsum.photos/seed/poblado-2/1200/800",
@@ -63,7 +73,11 @@
     "lat": 6.1709,
     "lon": -75.5905,
     "descripcion": "Apartaestudio cómodo y bien ubicado, ideal para una persona o pareja. Cerca de parques y transporte.",
-    "caracteristicas": ["Amoblado", "Cocina integral", "Cerca al metro"],
+    "caracteristicas": [
+      "Amoblado",
+      "Cocina integral",
+      "Cerca al metro"
+    ],
     "imagenes": [
       "https://picsum.photos/seed/envigado-1/1200/800",
       "https://picsum.photos/seed/envigado-2/1200/800"
@@ -86,7 +100,12 @@
     "lat": 6.1419,
     "lon": -75.6167,
     "descripcion": "Casa campestre con amplio jardín, zona de BBQ y vista a la montaña. Tranquilidad a 10 minutos del pueblo.",
-    "caracteristicas": ["Jardín amplio", "Zona BBQ", "Vista montaña", "Chimenea"],
+    "caracteristicas": [
+      "Jardín amplio",
+      "Zona BBQ",
+      "Vista montaña",
+      "Chimenea"
+    ],
     "imagenes": [
       "https://picsum.photos/seed/sabaneta-1/1200/800",
       "https://picsum.photos/seed/sabaneta-2/1200/800",
@@ -110,7 +129,11 @@
     "lat": 6.2335,
     "lon": -75.6017,
     "descripcion": "Apartamento familiar con buena distribución y luz. Zonas comunes con cancha y juegos infantiles.",
-    "caracteristicas": ["Cancha", "Juegos infantiles", "Portería 24h"],
+    "caracteristicas": [
+      "Cancha",
+      "Juegos infantiles",
+      "Portería 24h"
+    ],
     "imagenes": [
       "https://picsum.photos/seed/belen-1/1200/800",
       "https://picsum.photos/seed/belen-2/1200/800"
@@ -133,7 +156,11 @@
     "lat": 6.2421,
     "lon": -75.5921,
     "descripcion": "Loft de techos altos y diseño contemporáneo. Espacio diáfano perfecto para vivir y trabajar.",
-    "caracteristicas": ["Techos altos", "Diseño abierto", "Cocina integral"],
+    "caracteristicas": [
+      "Techos altos",
+      "Diseño abierto",
+      "Cocina integral"
+    ],
     "imagenes": [
       "https://picsum.photos/seed/loft-1/1200/800",
       "https://picsum.photos/seed/loft-2/1200/800"
