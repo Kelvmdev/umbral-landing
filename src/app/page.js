@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import Mapa from "@/components/Mapa";
+import Formulario from "@/components/Formulario";
 import PropiedadCard from "@/components/PropiedadCard";
 import { propiedades } from "@/lib/propiedades";
 import { sitio, faqs, waHref } from "@/lib/sitio";
-import { btnPrimario, btnSecundario, btnArcilla } from "@/lib/estilos";
+import { btnPrimario, btnSecundario } from "@/lib/estilos";
 
 export default function Home() {
   const { hero, ubicacion } = sitio;
@@ -127,18 +128,24 @@ export default function Home() {
           ¿Te interesa una propiedad?
         </h2>
         <p className="mx-auto mt-4 max-w-md font-body text-lg text-tenue">
-          Escríbenos y un asesor te acompaña a cruzar el umbral.
+          Déjanos tus datos y un asesor te acompaña a cruzar el umbral.
         </p>
-        <div className="mt-8 flex flex-wrap justify-center gap-4">
+
+        <div className="mt-8">
+          <Formulario />
+        </div>
+
+        <p className="mt-6 font-body text-sm text-tenue">
+          ¿Prefieres algo directo?{" "}
           <a
             href={waHref}
             target="_blank"
             rel="noopener noreferrer"
-            className={btnArcilla}
+            className="font-medium text-arcilla hover:underline"
           >
-            Escribir por WhatsApp
+            Escríbenos por WhatsApp
           </a>
-        </div>
+        </p>
       </section>
     </main>
   );
