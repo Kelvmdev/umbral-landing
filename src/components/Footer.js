@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+// Navegación = estructura del sitio (no contenido editable)
 const navegacion = [
   { href: "/#propiedades", texto: "Propiedades" },
   { href: "/#ubicacion", texto: "Ubicación" },
@@ -7,13 +8,8 @@ const navegacion = [
   { href: "/#contacto", texto: "Contacto" },
 ];
 
-const redes = [
-  { href: "https://instagram.com", texto: "Instagram" },
-  { href: "https://facebook.com", texto: "Facebook" },
-  { href: "https://wa.me/573000000000", texto: "WhatsApp" },
-];
-
-export default function Footer() {
+export default function Footer({ sitio }) {
+  const { marca, contacto, redes } = sitio;
   const año = 2026; // ponytail: fijo; si importa, new Date().getFullYear() en cliente
 
   return (
@@ -21,9 +17,12 @@ export default function Footer() {
       <div className="mx-auto grid max-w-7xl gap-[2.5rem] px-[6%] py-[4rem] sm:grid-cols-2 lg:grid-cols-4 lg:px-[4%]">
         {/* Marca + tagline */}
         <div className="sm:col-span-2 lg:col-span-1">
-          <p className="font-display text-2xl font-semibold text-tinta">Umbral</p>
+          <p className="font-display text-2xl font-semibold text-tinta">
+            {marca.nombre}
+          </p>
           <p className="mt-2 max-w-xs font-body text-sm leading-relaxed text-tenue">
-            Donde empieza el hogar. Catálogo de propiedades en venta y arriendo.
+            {marca.tagline.charAt(0).toUpperCase() + marca.tagline.slice(1)}.
+            Catálogo de propiedades en venta y arriendo.
           </p>
         </div>
 
@@ -53,16 +52,16 @@ export default function Footer() {
           </h2>
           <ul className="mt-4 space-y-2 font-body text-sm text-tinta-suave">
             <li>
-              <a href="tel:+573000000000" className="transition-colors hover:text-arcilla">
-                +57 300 000 0000
+              <a href={`tel:${contacto.tel}`} className="transition-colors hover:text-arcilla">
+                {contacto.tel}
               </a>
             </li>
             <li>
-              <a href="mailto:hola@umbral.co" className="transition-colors hover:text-arcilla">
-                hola@umbral.co
+              <a href={`mailto:${contacto.email}`} className="transition-colors hover:text-arcilla">
+                {contacto.email}
               </a>
             </li>
-            <li>Medellín, Colombia</li>
+            <li>{contacto.ciudad}</li>
           </ul>
         </div>
 
@@ -73,14 +72,14 @@ export default function Footer() {
           </h2>
           <ul className="mt-4 space-y-2">
             {redes.map((r) => (
-              <li key={r.href}>
+              <li key={r.url}>
                 <a
-                  href={r.href}
+                  href={r.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-body text-sm text-tinta-suave transition-colors hover:text-arcilla"
                 >
-                  {r.texto}
+                  {r.nombre}
                 </a>
               </li>
             ))}
@@ -90,7 +89,7 @@ export default function Footer() {
 
       <div className="border-t border-linea">
         <p className="mx-auto max-w-7xl px-[6%] py-5 font-body text-xs text-tenue lg:px-[4%]">
-          © {año} Umbral. Todos los derechos reservados.
+          © {año} {marca.nombre}. Todos los derechos reservados.
         </p>
       </div>
     </footer>

@@ -11,7 +11,7 @@ const enlaces = [
   { href: "/#contacto", texto: "Contacto" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ marca = "Umbral" }) {
   const [abierto, setAbierto] = useState(false);
 
   return (
@@ -24,7 +24,7 @@ export default function Navbar() {
           href="/"
           className="font-display text-2xl font-semibold tracking-tight text-tinta"
         >
-          Umbral
+          {marca}
         </Link>
 
         {/* Lado derecho: enlaces + tema + hamburguesa */}

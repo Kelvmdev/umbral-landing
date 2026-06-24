@@ -8,6 +8,7 @@ import {
   formatPrecio,
 } from "@/lib/propiedades";
 import { btnArcilla } from "@/lib/estilos";
+import { waHref } from "@/lib/sitio";
 
 // Pre-genera una página estática por cada propiedad (SSG)
 export function generateStaticParams() {
@@ -142,7 +143,7 @@ export default async function PropiedadPage({ params }) {
           ¿Quieres conocerla?
         </p>
         <a
-          href="https://wa.me/573000000000"
+          href={waHref}
           target="_blank"
           rel="noopener noreferrer"
           className={`${btnArcilla} mt-5`}

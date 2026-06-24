@@ -1,6 +1,7 @@
 import { Fraunces, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import Chrome from "@/components/Chrome";
+import { sitio } from "@/lib/sitio";
 
 // Serif editorial con carácter → titulares (la "voz" de la marca)
 const fraunces = Fraunces({
@@ -39,7 +40,7 @@ export default function RootLayout({ children }) {
           (p.ej. ColorZilla) cambian atributos → falso hydration mismatch */}
       <body className="min-h-screen antialiased" suppressHydrationWarning>
         <script dangerouslySetInnerHTML={{ __html: scriptTema }} />
-        <Chrome>{children}</Chrome>
+        <Chrome sitio={sitio}>{children}</Chrome>
       </body>
     </html>
   );

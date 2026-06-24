@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { faqs } from "@/lib/faqs";
+import { faqs, waHref } from "@/lib/sitio";
 import { btnArcilla } from "@/lib/estilos";
 
 export const metadata = {
@@ -60,7 +60,7 @@ export default function PreguntasPage() {
           ¿Te quedó otra duda?
         </p>
         <a
-          href="https://wa.me/573000000000"
+          href={waHref}
           target="_blank"
           rel="noopener noreferrer"
           className={`${btnArcilla} mt-5`}

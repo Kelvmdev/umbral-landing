@@ -3,24 +3,25 @@ import Link from "next/link";
 import Mapa from "@/components/Mapa";
 import PropiedadCard from "@/components/PropiedadCard";
 import { propiedades } from "@/lib/propiedades";
-import { faqs } from "@/lib/faqs";
+import { sitio, faqs, waHref } from "@/lib/sitio";
 import { btnPrimario, btnSecundario, btnArcilla } from "@/lib/estilos";
 
 export default function Home() {
+  const { hero, ubicacion } = sitio;
+
   return (
     <main id="contenido">
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="mx-auto grid max-w-7xl items-center gap-[6%] px-[6%] py-[6vh] lg:min-h-[calc(100svh-4.6rem)] lg:grid-cols-2 lg:px-[4%] lg:py-0">
         <div>
           <p className="font-body text-xs uppercase tracking-[0.4em] text-tenue">
-            Catálogo · 2026
+            {hero.eyebrow}
           </p>
           <h1 className="mt-4 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-tinta sm:text-6xl lg:text-7xl">
-            Cruza el umbral hacia tu próximo hogar
+            {hero.titulo}
           </h1>
           <p className="mt-6 max-w-md font-body text-lg leading-relaxed text-tenue">
-            Casas y apartamentos en venta y arriendo en Medellín y el Valle de
-            Aburrá. Encuentra el espacio donde empieza tu próxima historia.
+            {hero.sub}
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link href="#propiedades" className={btnPrimario}>
@@ -37,7 +38,7 @@ export default function Home() {
         <div className="mx-auto w-full max-w-sm rounded-[1.5rem] border border-linea bg-papel-2 p-3">
           <div className="relative h-[38vh] max-h-[22rem] w-full overflow-hidden rounded-[0.6rem] rounded-t-[1.6rem] lg:h-[62vh] lg:max-h-[32rem]">
             <Image
-              src="https://picsum.photos/seed/umbral-hero/900/1200"
+              src={hero.imagen}
               alt="Hogar acogedor iluminado por luz natural"
               fill
               sizes="(max-width: 1024px) 90vw, 40vw"
@@ -107,11 +108,11 @@ export default function Home() {
         {/* Tarjeta: Mapa (mismo marco, misma altura) */}
         <div className="rounded-[1.5rem] border border-linea bg-papel-2 p-3 lg:h-[32rem]">
           <Mapa
-            lat={6.2117}
-            lon={-75.5688}
-            zoom={12}
-            titulo="Umbral · Medellín"
-            direccion="Valle de Aburrá, Antioquia"
+            lat={ubicacion.lat}
+            lon={ubicacion.lon}
+            zoom={ubicacion.zoom}
+            titulo={ubicacion.titulo}
+            direccion={ubicacion.direccion}
             className="h-full min-h-[18rem]"
           />
         </div>
@@ -130,7 +131,7 @@ export default function Home() {
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <a
-            href="https://wa.me/573000000000"
+            href={waHref}
             target="_blank"
             rel="noopener noreferrer"
             className={btnArcilla}

@@ -5,11 +5,11 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 // Oculta nav y footer del sitio público dentro de /admin (Fase 2).
-export default function Chrome({ children }) {
+export default function Chrome({ children, sitio }) {
   const esAdmin = usePathname()?.startsWith("/admin");
   return (
     <>
-      {!esAdmin && <Navbar />}
+      {!esAdmin && <Navbar marca={sitio.marca.nombre} />}
       {/* Skip-link de accesibilidad (tema 08); el <main> lo define cada página */}
       <a
         href="#contenido"
@@ -18,7 +18,7 @@ export default function Chrome({ children }) {
         Saltar al contenido
       </a>
       {children}
-      {!esAdmin && <Footer />}
+      {!esAdmin && <Footer sitio={sitio} />}
     </>
   );
 }
