@@ -26,7 +26,43 @@ function Campo({ label, value, onChange, type = "text", textarea }) {
   );
 }
 
-// Editor de una lista de URLs de imagen (pegar link; subida real → Cloudinary)
+// Botón que sube un archivo desde el PC y devuelve su URL
+function SubirBoton({ onSubido, label = "⬆ Subir desde PC" }) {
+  const [subiendo, setSubiendo] = useState(false);
+  const [err, setErr] = useState("");
+
+  async function manejar(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setErr("");
+    setSubiendo(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const r = await fetch("/api/upload", { method: "POST", body: fd });
+      const d = await r.json().catch(() => ({}));
+      if (r.ok && d.url) onSubido(d.url);
+      else setErr(d.error || "Falló la subida");
+    } catch {
+      setErr("Error de red");
+    } finally {
+      setSubiendo(false);
+      e.target.value = "";
+    }
+  }
+
+  return (
+    <span className="inline-flex items-center gap-2">
+      <label className="cursor-pointer rounded-full border border-linea px-4 py-1.5 font-body text-sm text-tinta-suave transition hover:bg-papel-3">
+        <input type="file" accept="image/*" onChange={manejar} className="hidden" disabled={subiendo} />
+        {subiendo ? "Subiendo…" : label}
+      </label>
+      {err && <span className="font-body text-xs text-arcilla">{err}</span>}
+    </span>
+  );
+}
+
+// Editor de una lista de URLs de imagen (subir desde PC o pegar link)
 function ListaImagenes({ urls, onChange }) {
   const set = (j, v) => onChange(urls.map((u, k) => (k === j ? v : u)));
   const quitar = (j) => onChange(urls.filter((_, k) => k !== j));
@@ -58,9 +94,12 @@ function ListaImagenes({ urls, onChange }) {
           </div>
         ))}
       </div>
-      <button type="button" onClick={agregar} className="mt-2 font-body text-sm text-arcilla hover:underline">
-        + Añadir imagen
-      </button>
+      <div className="mt-3 flex flex-wrap items-center gap-3">
+        <SubirBoton onSubido={(url) => onChange([...urls, url])} />
+        <button type="button" onClick={agregar} className="font-body text-sm text-arcilla hover:underline">
+          + Pegar URL
+        </button>
+      </div>
     </div>
   );
 }
@@ -194,13 +233,18 @@ export default function PanelAdmin({ propiedadesIniciales, sitioInicial }) {
               <Campo label="Eyebrow" value={sitio.hero.eyebrow} onChange={(v) => setSit("hero", "eyebrow", v)} />
               <Campo label="Título" value={sitio.hero.titulo} onChange={(v) => setSit("hero", "titulo", v)} />
               <Campo label="Subtítulo" textarea value={sitio.hero.sub} onChange={(v) => setSit("hero", "sub", v)} />
-              <div className="flex items-center gap-3">
-                {sitio.hero.imagen && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={sitio.hero.imagen} alt="" className="h-14 w-20 shrink-0 rounded object-cover" />
-                )}
-                <div className="flex-1">
-                  <Campo label="Imagen del hero (URL)" value={sitio.hero.imagen} onChange={(v) => setSit("hero", "imagen", v)} />
+              <div>
+                <div className="flex items-center gap-3">
+                  {sitio.hero.imagen && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={sitio.hero.imagen} alt="" className="h-14 w-20 shrink-0 rounded object-cover" />
+                  )}
+                  <div className="flex-1">
+                    <Campo label="Imagen del hero (URL)" value={sitio.hero.imagen} onChange={(v) => setSit("hero", "imagen", v)} />
+                  </div>
+                </div>
+                <div className="mt-3">
+                  <SubirBoton onSubido={(url) => setSit("hero", "imagen", url)} />
                 </div>
               </div>
             </div>
