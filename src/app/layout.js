@@ -1,5 +1,6 @@
 import { Fraunces, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
+import Chrome from "@/components/Chrome";
 
 // Serif editorial con carácter → titulares (la "voz" de la marca)
 const fraunces = Fraunces({
@@ -27,7 +28,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es" className={`${fraunces.variable} ${hanken.variable}`}>
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased">
+        <Chrome>{children}</Chrome>
+      </body>
     </html>
   );
 }
