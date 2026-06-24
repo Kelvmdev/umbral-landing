@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Umbral — *donde empieza el hogar*
 
-## Getting Started
+Sitio inmobiliario (catálogo de propiedades en venta/arriendo) con **Asesor virtual de IA**.
 
-First, run the development server:
+## Concepto
+
+Estudio de arquitectura boutique, no portal genérico. Editorial, cálido, hecho a mano.
+
+- **Firma:** cada propiedad va enmarcada por un *umbral* (líneas tipo plano) + número de catálogo editorial.
+- **Paleta:** tinta cálida · papel hueso · acento **arcilla/terracota** · oliva apagado. (tokens en `src/app/globals.css`)
+- **Tipografía:** Fraunces (serif editorial, titulares) + Hanken Grotesk (sans humanista, cuerpo).
+
+## Stack
+
+Next.js 16 (App Router, JavaScript) · Tailwind v4 (`@theme`) · fuentes self-host con `next/font` · deploy en Vercel.
+
+> ⚠️ Esta es Next.js 16: tiene cambios que rompen vs versiones previas. Antes de tocar APIs, consultar `node_modules/next/dist/docs/`.
+
+## Datos (desde la Fase 2)
+
+`src/content/propiedades.json` y `src/content/sitio.json`. Imágenes vía Cloudinary (nunca binarios en el repo).
+
+## Variables de entorno
+
+Crear `.env.local` (NO se commitea). Pedir los valores reales al dueño; no inventarlos.
+
+| Clave | Para qué |
+|---|---|
+| `ANTHROPIC_API_KEY` | Asesor IA (servidor, nunca al navegador) |
+| `ADMIN_PASSWORD` · `SESSION_SECRET` | Login del panel `/admin` (auth HMAC) |
+| `GITHUB_TOKEN` · `GITHUB_OWNER` · `GITHUB_REPO` · `GITHUB_BRANCH` | Guardado del CMS vía GitHub Contents API |
+| `HUBSPOT_PORTAL_ID` · `HUBSPOT_FORM_ID` | Envío del formulario de interés |
+| `NEXT_PUBLIC_SITE_URL` | URL absoluta (SEO/OG/sitemap) |
+
+## Desarrollo
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev      # http://localhost:3000
+npm run build    # build de producción
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Plan por fases (loop, una por iteración)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [x] **0** · Concepto + firma + tokens + estructura + README
+- [ ] **1** · Maquetado: nav, hero, grid, detalle `[slug]`, mapa, footer
+- [ ] **2** · Datos + CMS `/admin` (HMAC) + GitHub API
+- [ ] **3** · Formulario → HubSpot (proxy) + `/gracias`
+- [ ] **4** · 🤖 Asesor IA: endpoint server-side + grounding + streaming + chat accesible
+- [ ] **5** · SEO/GEO + accesibilidad + rendimiento + CHECK FINAL ADVERSARIAL

@@ -1,26 +1,49 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ── Umbral · sistema de tokens ──────────────────────────────────────────
+   Concepto: estudio de arquitectura boutique. Tonos tierra + papel, tinta
+   cálida, acento arcilla. Cambiar un tono = cambiarlo SOLO aquí. */
+@theme {
+  /* Tinta cálida (casi negro, nunca azulado) */
+  --color-tinta: #1d1813;
+  --color-tinta-suave: #2c2620;
+
+  /* Papel / superficies */
+  --color-papel: #f3ede1;        /* fondo del sitio */
+  --color-papel-2: #faf5ea;      /* tarjetas, superficies elevadas */
+  --color-papel-3: #e9e1d1;      /* bandas, zonas hundidas */
+
+  /* Acento arcilla (terracota) */
+  --color-arcilla: #b1502b;
+  --color-arcilla-honda: #8a3c1f;
+
+  /* Acento oliva (secundario, sereno) */
+  --color-oliva: #5e6342;
+
+  /* Líneas y texto tenue */
+  --color-linea: #d6cab4;        /* bordes, hairlines del "umbral" */
+  --color-tenue: #6b6052;        /* texto secundario (AA sobre papel) */
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-fraunces); /* serif editorial, titulares */
+  --font-body: var(--font-hanken);      /* sans humanista, cuerpo */
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-papel);
+  color: var(--color-tinta);
+  font-family: var(--font-hanken), system-ui, sans-serif;
+}
+
+/* Respeto a quien apaga animaciones en su SO (tema 08) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
