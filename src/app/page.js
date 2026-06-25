@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Mapa from "@/components/Mapa";
 import Formulario from "@/components/Formulario";
+import Reveal from "@/components/Reveal";
 import PropiedadCard from "@/components/PropiedadCard";
 import { propiedades } from "@/lib/propiedades";
 import { sitio, faqs, waHref } from "@/lib/sitio";
@@ -12,7 +13,7 @@ export default function Home() {
 
   return (
     <main id="contenido">
-      {/* ── Hero ─────────────────────────────────────────────── */}
+      {/* ── Hero (sin Reveal: es lo primero, debe cargar al instante) ── */}
       <section className="mx-auto grid max-w-7xl items-center gap-[6%] px-[6%] py-[6vh] lg:min-h-[calc(100svh-4.6rem)] lg:grid-cols-2 lg:px-[4%] lg:py-0">
         <div>
           <p className="font-body text-xs uppercase tracking-[0.4em] text-tenue">
@@ -51,102 +52,107 @@ export default function Home() {
       </section>
 
       {/* ── Propiedades ──────────────────────────────────────── */}
-      <section id="propiedades" className="mx-auto max-w-7xl px-[6%] py-[6vh] lg:px-[4%]">
-        <div className="flex items-end justify-between border-b border-linea pb-5">
-          <h2 className="font-display text-3xl font-semibold text-tinta sm:text-4xl">
-            El catálogo
-          </h2>
-          <p className="font-body text-sm text-tenue">
-            {propiedades.length} propiedades
-          </p>
-        </div>
+      <Reveal>
+        <section id="propiedades" className="mx-auto max-w-7xl px-[6%] py-[6vh] lg:px-[4%]">
+          <div className="flex items-end justify-between border-b border-linea pb-5">
+            <h2 className="font-display text-3xl font-semibold text-tinta sm:text-4xl">
+              El catálogo
+            </h2>
+            <p className="font-body text-sm text-tenue">
+              {propiedades.length} propiedades
+            </p>
+          </div>
 
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {propiedades.map((p, i) => (
-            <PropiedadCard
-              key={p.slug}
-              propiedad={p}
-              indice={i}
-              prioridad={i === 0}
-            />
-          ))}
-        </div>
-      </section>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {propiedades.map((p, i) => (
+              <PropiedadCard
+                key={p.slug}
+                propiedad={p}
+                indice={i}
+                prioridad={i === 0}
+              />
+            ))}
+          </div>
+        </section>
+      </Reveal>
 
       {/* ── Ubicación + Preguntas (dos columnas iguales) ─────── */}
-      <section
-        id="ubicacion"
-        className="mx-auto grid max-w-7xl gap-6 px-[6%] py-[6vh] lg:grid-cols-2 lg:px-[4%]"
-      >
-        {/* Tarjeta: Preguntas (resumen → /preguntas) */}
-        <div
-          id="faq"
-          className="flex flex-col rounded-[1.5rem] border border-linea bg-papel-2 p-6 sm:p-8 lg:h-[32rem]"
+      <Reveal>
+        <section
+          id="ubicacion"
+          className="mx-auto grid max-w-7xl gap-6 px-[6%] py-[6vh] lg:grid-cols-2 lg:px-[4%]"
         >
-          <h2 className="font-display text-2xl font-semibold text-tinta sm:text-3xl">
-            Preguntas frecuentes
-          </h2>
-          <ul className="mt-6 flex-1 divide-y divide-linea border-t border-linea">
-            {faqs.slice(0, 5).map((f) => (
-              <li key={f.q}>
-                <Link
-                  href="/preguntas"
-                  className="group flex items-center justify-between gap-4 py-3.5 font-display text-base font-semibold text-tinta transition-colors hover:text-arcilla"
-                >
-                  {f.q}
-                  <span className="shrink-0 text-arcilla transition-transform group-hover:translate-x-1">
-                    →
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <Link href="/preguntas" className={`${btnPrimario} mt-6 self-start`}>
-            Ver todas las preguntas
-          </Link>
-        </div>
-
-        {/* Tarjeta: Mapa (mismo marco, misma altura) */}
-        <div className="rounded-[1.5rem] border border-linea bg-papel-2 p-3 lg:h-[32rem]">
-          <Mapa
-            lat={ubicacion.lat}
-            lon={ubicacion.lon}
-            zoom={ubicacion.zoom}
-            titulo={ubicacion.titulo}
-            direccion={ubicacion.direccion}
-            className="h-full min-h-[18rem]"
-          />
-        </div>
-      </section>
-
-      {/* ── Contacto (formulario llega en Fase 3) ────────────── */}
-      <section
-        id="contacto"
-        className="mx-auto max-w-7xl px-[6%] py-[8vh] text-center lg:px-[4%]"
-      >
-        <h2 className="font-display text-3xl font-semibold text-tinta sm:text-4xl">
-          ¿Te interesa una propiedad?
-        </h2>
-        <p className="mx-auto mt-4 max-w-md font-body text-lg text-tenue">
-          Déjanos tus datos y un asesor te acompaña a cruzar el umbral.
-        </p>
-
-        <div className="mt-8">
-          <Formulario />
-        </div>
-
-        <p className="mt-6 font-body text-sm text-tenue">
-          ¿Prefieres algo directo?{" "}
-          <a
-            href={waHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-arcilla hover:underline"
+          {/* Tarjeta: Preguntas (resumen → /preguntas) */}
+          <div
+            id="faq"
+            className="flex flex-col rounded-[1.5rem] border border-linea bg-papel-2 p-6 sm:p-8 lg:h-[32rem]"
           >
-            Escríbenos por WhatsApp
-          </a>
-        </p>
-      </section>
+            <h2 className="font-display text-2xl font-semibold text-tinta sm:text-3xl">
+              Preguntas frecuentes
+            </h2>
+            <ul className="mt-6 flex-1 divide-y divide-linea border-t border-linea">
+              {faqs.slice(0, 5).map((f) => (
+                <li key={f.q}>
+                  <Link
+                    href="/preguntas"
+                    className="group flex items-center justify-between gap-4 py-3.5 font-display text-base font-semibold text-tinta transition-colors hover:text-arcilla"
+                  >
+                    {f.q}
+                    <span className="shrink-0 text-arcilla transition-transform group-hover:translate-x-1">
+                      →
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link href="/preguntas" className={`${btnPrimario} mt-6 self-start`}>
+              Ver todas las preguntas
+            </Link>
+          </div>
+
+          {/* Tarjeta: Mapa (mismo marco, misma altura) */}
+          <div className="rounded-[1.5rem] border border-linea bg-papel-2 p-3 lg:h-[32rem]">
+            <Mapa
+              lat={ubicacion.lat}
+              lon={ubicacion.lon}
+              zoom={ubicacion.zoom}
+              titulo={ubicacion.titulo}
+              direccion={ubicacion.direccion}
+              className="h-full min-h-[18rem]"
+            />
+          </div>
+        </section>
+      </Reveal>
+
+      {/* ── Contacto (formulario → /api/lead) ────────────────── */}
+      <Reveal>
+        <section
+          id="contacto"
+          className="mx-auto grid max-w-7xl items-center gap-[6%] px-[6%] py-[8vh] lg:min-h-[calc(100svh-4.6rem)] lg:grid-cols-2 lg:px-[4%] lg:py-0"
+        >
+          <div className="text-center lg:text-left">
+            <h2 className="font-display text-3xl font-semibold text-tinta sm:text-4xl lg:text-5xl">
+              ¿Te interesa una propiedad?
+            </h2>
+            <p className="mx-auto mt-4 max-w-md font-body text-lg text-tenue lg:mx-0">
+              Déjanos tus datos y un asesor te acompaña a cruzar el umbral.
+            </p>
+            <p className="mt-6 font-body text-sm text-tenue">
+              ¿Prefieres algo directo?{" "}
+              <a
+                href={waHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-arcilla hover:underline"
+              >
+                Escríbenos por WhatsApp
+              </a>
+            </p>
+          </div>
+
+          <Formulario />
+        </section>
+      </Reveal>
     </main>
   );
 }
