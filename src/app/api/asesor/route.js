@@ -40,7 +40,7 @@ export async function POST(req) {
     model: MODELO,
     stream: true,
     max_tokens: 1024,
-    temperature: 0.3,
+    temperature: 0, // datos de catálogo: queremos exactitud, no creatividad
     messages: [{ role: "system", content: construirSystemPrompt() }, ...historial],
   };
 
