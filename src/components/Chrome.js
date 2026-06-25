@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Asesor from "./Asesor";
 
 // Oculta nav y footer del sitio público dentro de /admin (Fase 2).
 export default function Chrome({ children, sitio }) {
@@ -19,6 +20,7 @@ export default function Chrome({ children, sitio }) {
       </a>
       {children}
       {!esAdmin && <Footer sitio={sitio} />}
+      {!esAdmin && <Asesor />}
     </>
   );
 }
