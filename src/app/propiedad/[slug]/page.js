@@ -22,9 +22,18 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const p = getPropiedad(slug);
   if (!p) return {};
+  const precio = formatPrecio(p);
   return {
     title: p.titulo,
     description: p.descripcion,
+    alternates: { canonical: `/propiedad/${p.slug}` },
+    openGraph: {
+      type: "website",
+      title: `${p.titulo} — ${precio}`,
+      description: p.descripcion,
+      url: `/propiedad/${p.slug}`,
+      images: p.imagenes?.length ? [{ url: p.imagenes[0] }] : undefined,
+    },
   };
 }
 
