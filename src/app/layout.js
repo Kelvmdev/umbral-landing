@@ -2,6 +2,7 @@ import { Fraunces, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import Chrome from "@/components/Chrome";
 import { sitio } from "@/lib/sitio";
+import { SITE_URL } from "@/lib/site";
 
 // Serif editorial con carácter → titulares (la "voz" de la marca)
 const fraunces = Fraunces({
@@ -18,12 +19,24 @@ const hanken = Hanken_Grotesk({
 });
 
 export const metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Umbral — donde empieza el hogar",
     template: "%s · Umbral",
   },
   description:
     "Catálogo de propiedades en venta y arriendo. Cruza el umbral hacia tu próximo hogar.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "es_CO",
+    siteName: "Umbral",
+    url: SITE_URL,
+    title: "Umbral — donde empieza el hogar",
+    description:
+      "Catálogo de propiedades en venta y arriendo en Medellín y el Valle de Aburrá.",
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 // Aplica el tema guardado (o el del sistema) ANTES de pintar → sin parpadeo
