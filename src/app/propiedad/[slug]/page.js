@@ -9,6 +9,8 @@ import {
 } from "@/lib/propiedades";
 import { btnArcilla } from "@/lib/estilos";
 import { waHref } from "@/lib/sitio";
+import JsonLd from "@/components/JsonLd";
+import { propiedadJsonLd } from "@/lib/jsonld";
 
 // Pre-genera una página estática por cada propiedad (SSG)
 export function generateStaticParams() {
@@ -41,6 +43,7 @@ export default async function PropiedadPage({ params }) {
 
   return (
     <main id="contenido" className="mx-auto max-w-6xl px-[6%] py-[6vh] lg:px-[4%]">
+      <JsonLd data={propiedadJsonLd(p)} />
       <Link
         href="/#propiedades"
         className="font-body text-sm text-tenue transition-colors hover:text-arcilla"

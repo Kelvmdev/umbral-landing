@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { faqs, waHref } from "@/lib/sitio";
 import { btnArcilla } from "@/lib/estilos";
+import JsonLd from "@/components/JsonLd";
+import { faqJsonLd } from "@/lib/jsonld";
 
 export const metadata = {
   title: "Preguntas frecuentes",
@@ -11,6 +13,7 @@ export const metadata = {
 export default function PreguntasPage() {
   return (
     <main id="contenido" className="mx-auto max-w-3xl px-[6%] py-[8vh] lg:px-[4%]">
+      <JsonLd data={faqJsonLd(faqs)} />
       <Link
         href="/#faq"
         className="font-body text-sm text-tenue transition-colors hover:text-arcilla"
