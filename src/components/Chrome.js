@@ -16,7 +16,7 @@ export default function Chrome({ children, sitio }) {
       {!esAdmin && (
         <a
           href="#contenido"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-tinta focus:px-4 focus:py-2 focus:text-papel"
+          className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:left-4 focus-visible:top-4 focus-visible:z-50 focus-visible:rounded-md focus-visible:bg-tinta focus-visible:px-4 focus-visible:py-2 focus-visible:text-papel"
         >
           Saltar al contenido
         </a>

@@ -21,7 +21,7 @@ export default function PropiedadCard({ propiedad, indice = 0, prioridad = false
       {/* Foto matada: arco arriba (la firma "umbral") dentro de un marco de papel */}
       <div className="relative aspect-[4/3] overflow-hidden rounded-[0.6rem] rounded-t-[1.6rem]">
         <Image
-          src={propiedad.imagenes[0]}
+          src={propiedad.imagenes?.[0] ?? "https://placehold.co/800x600?text=Umbral"}
           alt={propiedad.titulo}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"

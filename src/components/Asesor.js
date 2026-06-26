@@ -17,6 +17,7 @@ export default function Asesor() {
   const inputRef = useRef(null);
   const panelRef = useRef(null);
   const botonRef = useRef(null);
+  const raizRef = useRef(null);
 
   // Cierra y devuelve el foco al botón flotante (no se pierde en el vacío)
   function cerrar() {
@@ -62,6 +63,18 @@ export default function Asesor() {
     };
     window.addEventListener("keydown", alPresionar);
     return () => window.removeEventListener("keydown", alPresionar);
+  }, [abierto]);
+
+  // Al abrir, marca el resto de la página como `inert`: bloquea ratón, teclado
+  // y cursor virtual del lector de pantalla detrás del modal (tema 08). El
+  // focus-trap solo atrapa Tab; inert sella todo lo demás.
+  useEffect(() => {
+    if (!abierto) return;
+    const hermanos = Array.from(document.body.children).filter(
+      (el) => el !== raizRef.current
+    );
+    hermanos.forEach((el) => el.setAttribute("inert", ""));
+    return () => hermanos.forEach((el) => el.removeAttribute("inert"));
   }, [abierto]);
 
   async function enviar() {
@@ -121,7 +134,7 @@ export default function Asesor() {
   }
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end">
+    <div ref={raizRef} className="fixed bottom-5 right-5 z-50 flex flex-col items-end">
       {/* Panel del chat */}
       {abierto && (
         <section

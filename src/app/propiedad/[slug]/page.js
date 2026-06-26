@@ -17,6 +17,16 @@ export function generateStaticParams() {
   return slugsPropiedades().map((slug) => ({ slug }));
 }
 
+// OG de la ficha a 1200x630 (proporción de las tarjetas sociales). Cloudinary
+// recorta al vuelo con c_fill; otras URLs (picsum demo) se sirven tal cual.
+function ogImagen(src, alt) {
+  if (!src) return undefined;
+  const url = src.includes("res.cloudinary.com/")
+    ? src.replace("/upload/", "/upload/c_fill,w_1200,h_630/")
+    : src;
+  return [{ url, width: 1200, height: 630, alt }];
+}
+
 // SEO por propiedad (params es asíncrono en Next 16)
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -32,9 +42,7 @@ export async function generateMetadata({ params }) {
       title: `${p.titulo} — ${precio}`,
       description: p.descripcion,
       url: `/propiedad/${p.slug}`,
-      images: p.imagenes?.length
-        ? [{ url: p.imagenes[0], width: 1200, height: 800, alt: p.titulo }]
-        : undefined,
+      images: ogImagen(p.imagenes?.[0], p.titulo),
     },
   };
 }
@@ -78,7 +86,7 @@ export default async function PropiedadPage({ params }) {
 
       {/* Galería */}
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
-        {p.imagenes.map((src, i) => (
+        {(p.imagenes ?? []).map((src, i) => (
           <div
             key={src}
             className={`relative aspect-[4/3] overflow-hidden rounded-2xl border border-linea ${

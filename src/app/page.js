@@ -16,7 +16,9 @@ export default function Home() {
   return (
     <main id="contenido" tabIndex={-1}>
       <JsonLd data={orgJsonLd()} />
-      <JsonLd data={faqJsonLd(faqs)} />
+      {/* Solo las 5 FAQs visibles abajo: el schema debe coincidir con el DOM
+          (Google penaliza el mismatch). El FAQPage completo vive en /preguntas. */}
+      <JsonLd data={faqJsonLd(faqs.slice(0, 5))} />
       {/* ── Hero (sin Reveal: es lo primero, debe cargar al instante) ── */}
       <section className="mx-auto grid max-w-7xl items-center gap-[6%] px-[6%] py-[6vh] lg:min-h-[calc(100svh-4.6rem)] lg:grid-cols-2 lg:px-[4%] lg:py-0">
         <div>

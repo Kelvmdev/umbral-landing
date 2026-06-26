@@ -44,6 +44,7 @@ export function propiedadJsonLd(p) {
     name: p.titulo,
     description: p.descripcion,
     url: `${SITE_URL}/propiedad/${p.slug}`,
+    image: p.imagenes?.[0] || undefined,
     numberOfRooms: p.habitaciones,
     numberOfBathroomsTotal: p.banos,
     floorSize: { "@type": "QuantitativeValue", value: p.area_m2, unitCode: "MTK" },
