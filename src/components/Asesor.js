@@ -15,6 +15,38 @@ export default function Asesor() {
   const [enviando, setEnviando] = useState(false);
   const finRef = useRef(null);
   const inputRef = useRef(null);
+  const panelRef = useRef(null);
+  const botonRef = useRef(null);
+
+  // Cierra y devuelve el foco al botón flotante (no se pierde en el vacío)
+  function cerrar() {
+    setAbierto(false);
+    botonRef.current?.focus();
+  }
+
+  // Esc cierra; Tab queda atrapado dentro del panel (focus-trap, tema 08)
+  function onKeyDownPanel(e) {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      cerrar();
+      return;
+    }
+    if (e.key !== "Tab") return;
+    const focuseables = panelRef.current?.querySelectorAll(
+      'button, textarea, input, a[href], [tabindex]:not([tabindex="-1"])'
+    );
+    const lista = Array.from(focuseables || []).filter((el) => !el.disabled);
+    if (!lista.length) return;
+    const primero = lista[0];
+    const ultimo = lista[lista.length - 1];
+    if (e.shiftKey && document.activeElement === primero) {
+      e.preventDefault();
+      ultimo.focus();
+    } else if (!e.shiftKey && document.activeElement === ultimo) {
+      e.preventDefault();
+      primero.focus();
+    }
+  }
 
   // Auto-scroll al último mensaje
   useEffect(() => {
@@ -87,7 +119,11 @@ export default function Asesor() {
       {/* Panel del chat */}
       {abierto && (
         <section
+          ref={panelRef}
+          role="dialog"
+          aria-modal="true"
           aria-label="Asesor virtual de Umbral"
+          onKeyDown={onKeyDownPanel}
           className="mb-3 flex h-[70vh] max-h-[34rem] w-[min(92vw,24rem)] flex-col overflow-hidden rounded-[1.25rem] border border-linea bg-papel-2 shadow-2xl"
         >
           <header className="flex items-center justify-between border-b border-linea bg-papel-3 px-4 py-3">
@@ -97,7 +133,7 @@ export default function Asesor() {
             </div>
             <button
               type="button"
-              onClick={() => setAbierto(false)}
+              onClick={cerrar}
               aria-label="Cerrar chat"
               className="flex h-9 w-9 items-center justify-center rounded-md text-tinta transition active:scale-95 hover:text-arcilla"
             >
@@ -157,6 +193,7 @@ export default function Asesor() {
 
       {/* Botón flotante */}
       <button
+        ref={botonRef}
         type="button"
         onClick={() => setAbierto((v) => !v)}
         aria-expanded={abierto}
