@@ -10,6 +10,7 @@ export default function GraciasPage() {
   return (
     <main
       id="contenido"
+      tabIndex={-1}
       className="mx-auto flex min-h-[70vh] max-w-xl flex-col items-center justify-center px-[6%] py-[12vh] text-center"
     >
       {/* Umbral de arco como remate visual */}

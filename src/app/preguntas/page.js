@@ -4,15 +4,23 @@ import { btnArcilla } from "@/lib/estilos";
 import JsonLd from "@/components/JsonLd";
 import { faqJsonLd } from "@/lib/jsonld";
 
+const descPreguntas =
+  "Resolvemos tus dudas sobre visitas, financiación, arriendo y zonas. Todo lo que necesitas saber antes de cruzar el umbral.";
+
 export const metadata = {
   title: "Preguntas frecuentes",
-  description:
-    "Resolvemos tus dudas sobre visitas, financiación, arriendo y zonas. Todo lo que necesitas saber antes de cruzar el umbral.",
+  description: descPreguntas,
+  alternates: { canonical: "/preguntas" },
+  openGraph: {
+    title: "Preguntas frecuentes · Umbral",
+    description: descPreguntas,
+    url: "/preguntas",
+  },
 };
 
 export default function PreguntasPage() {
   return (
-    <main id="contenido" className="mx-auto max-w-3xl px-[6%] py-[8vh] lg:px-[4%]">
+    <main id="contenido" tabIndex={-1} className="mx-auto max-w-3xl px-[6%] py-[8vh] lg:px-[4%]">
       <JsonLd data={faqJsonLd(faqs)} />
       <Link
         href="/#faq"

@@ -19,6 +19,11 @@ export function orgJsonLd() {
       addressRegion: "Antioquia",
       addressCountry: "CO",
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: sitio.ubicacion.lat,
+      longitude: sitio.ubicacion.lon,
+    },
     sameAs: sitio.redes.map((r) => r.url),
   };
 }

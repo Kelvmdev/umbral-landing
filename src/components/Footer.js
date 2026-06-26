@@ -10,7 +10,7 @@ const navegacion = [
 
 export default function Footer({ sitio }) {
   const { marca, contacto, redes } = sitio;
-  const año = 2026; // ponytail: fijo; si importa, new Date().getFullYear() en cliente
+  const año = new Date().getFullYear();
 
   return (
     <footer className="mt-[8%] border-t border-linea bg-papel-3">

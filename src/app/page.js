@@ -7,12 +7,16 @@ import PropiedadCard from "@/components/PropiedadCard";
 import { propiedades } from "@/lib/propiedades";
 import { sitio, faqs, waHref } from "@/lib/sitio";
 import { btnPrimario, btnSecundario } from "@/lib/estilos";
+import JsonLd from "@/components/JsonLd";
+import { orgJsonLd, faqJsonLd } from "@/lib/jsonld";
 
 export default function Home() {
   const { hero, ubicacion } = sitio;
 
   return (
-    <main id="contenido">
+    <main id="contenido" tabIndex={-1}>
+      <JsonLd data={orgJsonLd()} />
+      <JsonLd data={faqJsonLd(faqs)} />
       {/* ── Hero (sin Reveal: es lo primero, debe cargar al instante) ── */}
       <section className="mx-auto grid max-w-7xl items-center gap-[6%] px-[6%] py-[6vh] lg:min-h-[calc(100svh-4.6rem)] lg:grid-cols-2 lg:px-[4%] lg:py-0">
         <div>
@@ -41,7 +45,7 @@ export default function Home() {
           <div className="relative h-[38vh] max-h-[22rem] w-full overflow-hidden rounded-[0.6rem] rounded-t-[1.6rem] lg:h-[62vh] lg:max-h-[32rem]">
             <Image
               src={hero.imagen}
-              alt="Hogar acogedor iluminado por luz natural"
+              alt={hero.alt || "Hogar acogedor iluminado por luz natural"}
               fill
               sizes="(max-width: 1024px) 90vw, 40vw"
               className="object-cover"

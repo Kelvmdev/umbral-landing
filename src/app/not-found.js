@@ -1,9 +1,12 @@
 import Link from "next/link";
 
+export const metadata = { robots: { index: false, follow: true } };
+
 export default function NotFound() {
   return (
     <main
       id="contenido"
+      tabIndex={-1}
       className="mx-auto flex min-h-[60vh] max-w-xl flex-col items-center justify-center px-[6%] py-[10vh] text-center"
     >
       <p className="font-body text-xs uppercase tracking-[0.4em] text-tenue">

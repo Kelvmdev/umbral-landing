@@ -32,7 +32,9 @@ export async function generateMetadata({ params }) {
       title: `${p.titulo} — ${precio}`,
       description: p.descripcion,
       url: `/propiedad/${p.slug}`,
-      images: p.imagenes?.length ? [{ url: p.imagenes[0] }] : undefined,
+      images: p.imagenes?.length
+        ? [{ url: p.imagenes[0], width: 1200, height: 800, alt: p.titulo }]
+        : undefined,
     },
   };
 }
@@ -51,7 +53,7 @@ export default async function PropiedadPage({ params }) {
   if (!p) notFound();
 
   return (
-    <main id="contenido" className="mx-auto max-w-6xl px-[6%] py-[6vh] lg:px-[4%]">
+    <main id="contenido" tabIndex={-1} className="mx-auto max-w-6xl px-[6%] py-[6vh] lg:px-[4%]">
       <JsonLd data={propiedadJsonLd(p)} />
       <Link
         href="/#propiedades"

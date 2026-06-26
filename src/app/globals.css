@@ -13,16 +13,17 @@
   --color-papel-2: #ece2cf;      /* tarjetas, superficies elevadas (sube un punto) */
   --color-papel-3: #d4c6a9;      /* bandas, zonas hundidas */
 
-  /* Acento arcilla (terracota) */
-  --color-arcilla: #b1502b;
-  --color-arcilla-honda: #8a3c1f;
+  /* Acento arcilla (terracota). Oscurecido para que pase AA como TEXTO sobre
+     papel (5.17:1); antes #b1502b daba 3.50 y fallaba en precio/links/errores. */
+  --color-arcilla: #8a3c1f;
+  --color-arcilla-honda: #6f2d14;
 
-  /* Acento oliva (secundario, sereno) */
-  --color-oliva: #5e6342;
+  /* Acento oliva (secundario, sereno). Oscurecido para pasar AA (5.50:1). */
+  --color-oliva: #4e5235;
 
   /* Líneas y texto tenue */
   --color-linea: #d6cab4;        /* bordes, hairlines del "umbral" */
-  --color-tenue: #6b6052;        /* texto secundario (AA sobre papel) */
+  --color-tenue: #5a5142;        /* texto secundario (AA 5.28:1 sobre papel) */
 }
 
 @theme inline {
@@ -51,11 +52,36 @@
   --color-tenue: #a99c87;        /* texto secundario (AA sobre fondo oscuro) */
 }
 
+/* color-scheme: que el navegador pinte inputs/scrollbars en el tema correcto
+   antes de que cargue el JS → sin destello (tema 08). */
+html {
+  color-scheme: light;
+  /* La barra es sticky (~4.6rem); deja aire para que los anclajes no queden tapados. */
+  scroll-padding-top: 5.5rem;
+}
+.dark {
+  color-scheme: dark;
+}
+
 body {
   background: var(--color-papel);
   color: var(--color-tinta);
   font-family: var(--font-hanken), system-ui, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Foco visible para teclado en todo interactivo (tema 08). Solo en navegación
+   por teclado (:focus-visible), no al hacer clic con ratón. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-arcilla);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* En oscuro, el mapa de Google se invierte para no quemar la vista (tema 02) */
