@@ -29,7 +29,7 @@ El botón "Subir desde PC" (`src/app/admin/PanelAdmin.js` → `SubirBoton`) sube
 - Datos reales en `src/content/sitio.json`: WhatsApp/tel/email (hoy `573000000000`), URLs de redes (hoy raíz de instagram/facebook).
 - Fotos reales en `propiedades.json` (hoy `picsum.photos`) — editar desde `/admin` una vez Cloudinary esté listo.
 - Medir **PageSpeed** real en la URL de Vercel.
-- **Portafolio:** cuando Umbral esté terminado, subir **Umbral + Lumen** juntos a `mi-portafolio` (Lumen aún le falta el CMS editable; terminarlo antes o subirlo como está).
+- ✅ **Portafolio (HECHO 26 jun):** Umbral + Lumen publicados en `mi-portafolio` (8 proyectos). Umbral 2º tras Pulso. Repo de Lumen pasado a público.
 
 ## ⚠️ Gotchas conocidos (importantes)
 - **REGLA DE ORO CMS:** tras editar desde `/admin` (local o prod), `git pull --no-rebase --no-edit` ANTES de tocar código local. El CMS edita la copia de GitHub; tu local se desfasa.
