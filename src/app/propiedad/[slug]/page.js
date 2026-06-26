@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Mapa from "@/components/Mapa";
+import Galeria from "@/components/Galeria";
 import {
   getPropiedad,
   slugsPropiedades,
@@ -84,26 +84,8 @@ export default async function PropiedadPage({ params }) {
         </p>
       </header>
 
-      {/* Galería */}
-      <div className="mt-8 grid gap-4 sm:grid-cols-2">
-        {(p.imagenes ?? []).map((src, i) => (
-          <div
-            key={src}
-            className={`relative aspect-[4/3] overflow-hidden rounded-2xl border border-linea ${
-              i === 0 ? "sm:col-span-2 sm:aspect-[16/9]" : ""
-            }`}
-          >
-            <Image
-              src={src}
-              alt={`${p.titulo} — foto ${i + 1}`}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-              priority={i === 0}
-            />
-          </div>
-        ))}
-      </div>
+      {/* Galería con visor (lightbox) */}
+      <Galeria imagenes={p.imagenes ?? []} titulo={p.titulo} />
 
       {/* Especificaciones */}
       <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-linea bg-linea sm:grid-cols-5">
