@@ -26,7 +26,13 @@ function Campo({ label, value, onChange, type = "text", textarea }) {
   );
 }
 
-// Botón que sube un archivo desde el PC y devuelve su URL
+// Cloudinary unsigned: el navegador sube la foto al "almacén externo" y nos
+// devuelve la URL. Cloud name + preset son públicos (NEXT_PUBLIC_).
+const CLOUD = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+const PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_PRESET;
+const MAX_BYTES = 8 * 1024 * 1024; // 8 MB
+
+// Botón que sube un archivo desde el PC a Cloudinary y devuelve su secure_url
 function SubirBoton({ onSubido, label = "⬆ Subir desde PC" }) {
   const [subiendo, setSubiendo] = useState(false);
   const [err, setErr] = useState("");
@@ -35,14 +41,21 @@ function SubirBoton({ onSubido, label = "⬆ Subir desde PC" }) {
     const file = e.target.files?.[0];
     if (!file) return;
     setErr("");
+    if (!file.type.startsWith("image/")) return setErr("Solo imágenes");
+    if (file.size > MAX_BYTES) return setErr("Máximo 8 MB");
+    if (!CLOUD || !PRESET) return setErr("Cloudinary no configurado");
     setSubiendo(true);
     try {
       const fd = new FormData();
       fd.append("file", file);
-      const r = await fetch("/api/upload", { method: "POST", body: fd });
+      fd.append("upload_preset", PRESET);
+      const r = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD}/image/upload`, {
+        method: "POST",
+        body: fd,
+      });
       const d = await r.json().catch(() => ({}));
-      if (r.ok && d.url) onSubido(d.url);
-      else setErr(d.error || "Falló la subida");
+      if (r.ok && d.secure_url) onSubido(d.secure_url);
+      else setErr(d.error?.message || "Falló la subida");
     } catch {
       setErr("Error de red");
     } finally {
