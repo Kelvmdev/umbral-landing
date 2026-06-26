@@ -26,10 +26,12 @@ function Campo({ label, value, onChange, type = "text", textarea }) {
   );
 }
 
-// Cloudinary unsigned: el navegador sube la foto al "almacén externo" y nos
-// devuelve la URL. Cloud name + preset son públicos (NEXT_PUBLIC_).
-const CLOUD = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-const PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_PRESET;
+// Cloudinary unsigned: el navegador sube la foto al "almacen externo" y nos
+// devuelve la URL. Cloud name + preset son PUBLICOS por diseno (el preset
+// unsigned no expone API key), por eso van hardcodeados y no como secreto.
+// ponytail: config publica que no cambia -> constante, no env var.
+const CLOUD = "dm43alaeg";
+const PRESET = "umbral_unsigned";
 const MAX_BYTES = 8 * 1024 * 1024; // 8 MB
 
 // Botón que sube un archivo desde el PC a Cloudinary y devuelve su secure_url
