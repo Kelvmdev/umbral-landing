@@ -1,39 +1,37 @@
 # Estado del proyecto — Umbral
 
-> Última sesión: **2026-06-24**. Próxima: **2026-06-25**.
+> Última sesión: **2026-06-26**. Próxima: por definir.
 > Ruta del proyecto: `C:\Users\pc\Documents\Trabajos\Landings\Proyectos\umbral`
+> **En vivo:** https://umbral-landing-pi.vercel.app · **Repo:** github.com/Kelvmdev/umbral-landing (público, rama `main`)
 
 ## Cómo trabajamos (loop por fases)
 Una fase por iteración: construir → verificar (`npm run build`) → commit → checklist para que Kervin pruebe. El loop **se detiene en "puertas de decisión"** (cuando hace falta un secreto o un dato que solo Kervin tiene). Kervin es aprendiz: explicar el **porqué antes del cómo**, en tandas pequeñas.
 
-## ✅ Hecho (Fases 0–4)
-- **0** Concepto "Umbral" (estudio de arquitectura cálido), tokens, fuentes Fraunces + Hanken Grotesk.
-- **1** Maquetado completo: nav (hamburguesa), hero, grid, detalle `/propiedad/[slug]`, mapa anti-hijack, footer, 404, `/preguntas`. **Dark mode** (toggle sol/luna) + **animaciones al scroll** (`Reveal`). Botones con efecto de tarjeta.
-- **2** Datos en `src/content/*.json`. Panel `/admin` con login **HMAC** (`lib/auth.js`), pestañas Propiedades/Sitio/Preguntas, **subir imágenes desde el PC** (`/api/upload` → `public/uploads/`, gitignored). Guardado **local** (`/api/content` escribe los JSON).
-- **3** Formulario de interés (`components/Formulario.js`) → proxy `/api/lead` → **Formspree** (`FORMSPREE_ID=meebebvy`, ya configurado y probado) → `/gracias`. Campos: nombre, celular, correo, ¿qué buscas?, tipo de propiedad, mensaje, consentimiento.
-- **4** Asesor IA: chat flotante accesible (`components/Asesor.js`) → `/api/asesor` (server, **streaming**) usando **Groq** (gratis, `llama-3.3-70b-versatile`). Grounding en `lib/asesor-prompt.js` (responde solo con los datos, no inventa).
+## ✅ Hecho
+- **Fases 0–4** Concepto + maquetado completo (nav, hero, grid, `/propiedad/[slug]`, mapa anti-hijack, footer, 404, `/preguntas`), dark mode, animaciones al scroll, panel `/admin` con login **HMAC**, formulario → Formspree → `/gracias`.
+- **Asesor IA** (chat flotante, streaming, **Groq** gratis, grounded en el catálogo). Mejorado: precios legibles, separa venta/arriendo, respeta presupuesto, exhaustividad, aclara intención ("habitaciones" ambiguo), `temperature 0`. Accesible: `role=dialog` + Esc (listener global) + focus-trap.
+- **Fase 5 — SEO/GEO + accesibilidad AA** (todo el código):
+  - SEO: `metadataBase`, OG por página, `robots.txt` (con bots de IA), `sitemap.xml`, `llms.txt` autogenerado, favicon de marca (`icon.svg` + `apple-icon`).
+  - JSON-LD: `RealEstateAgent` (solo home, con geo), `FAQPage` (home + /preguntas), `House`/`Apartment` + Offer (precio, venta/arriendo) por ficha.
+  - A11y: contraste AA real en claro y oscuro (tokens tenue/arcilla/oliva), skip-link funcional, `focus-visible`, `color-scheme`, `scroll-padding-top`, `<main tabIndex=-1>`.
+  - Auditoría adversarial (`revisor-final`) corrida y resuelta.
+- **Deploy en Vercel** + env vars: `GROQ_API_KEY`, `ADMIN_PASSWORD`, `SESSION_SECRET`, `FORMSPREE_ID`, `NEXT_PUBLIC_SITE_URL`, `GITHUB_TOKEN`.
+- **CMS de TEXTO en producción**: `/admin` ya commitea a GitHub (no escribe disco). `src/lib/repo.js` → `commitArchivos()` con **Git Data API** (5 pasos, commit atómico de `propiedades.json`+`sitio.json`). `api/content` = backend dual (con `GITHUB_TOKEN` → GitHub; sin token → `fs` en dev). Probado end-to-end.
 
-## ⏳ PENDIENTE INMEDIATO (retomar aquí mañana)
-**Probar el Asesor IA** — Kervin YA tiene su `GROQ_API_KEY` pero NO la ha puesto ni probado el chat.
-1. Editar `.env.local` (sin VS Code, con Bloc de notas): `notepad "...\umbral\.env.local"`, descomentar y completar `GROQ_API_KEY=gsk_...`, guardar.
-2. **Reiniciar** el dev server (el `.env` se lee al arrancar). ← lo puede hacer el agente en segundo plano.
-3. Abrir el botón de chat (abajo-derecha) y preguntar p.ej. "¿qué casas hay en Laureles?".
+## ⏳ PENDIENTE INMEDIATO (retomar aquí)
+**Parte 2 del CMS — imágenes a Cloudinary.** Hoy `src/app/api/upload/route.js` guarda en `public/uploads/` (no funciona en Vercel, disco de solo lectura). Migrar a **Cloudinary** (unsigned upload): el navegador/servidor sube a Cloudinary y se guarda la **URL** en el JSON (nunca el binario). Necesita **cuenta gratis de Cloudinary** (Kervin) → `CLOUDINARY_CLOUD_NAME` + un unsigned upload preset. Detalle en manual tema 06.
 
-## ⏳ Fase 5 (siguiente fase, NO necesita secretos)
-SEO + GEO (metadata por página, JSON-LD Organization + Product/Offer + FAQPage, OG, sitemap, robots, `llms.txt`, favicon), accesibilidad AA, rendimiento, y **CHECK FINAL ADVERSARIAL** (subagente `revisor-final`). Se puede correr de principio a fin.
-
-## ⏳ Para el despliegue (Vercel, más adelante)
-- Subir el proyecto a un **repo de GitHub** + deploy en Vercel.
-- **CMS en prod:** cambiar el guardado de `/api/content` a **GitHub Contents API** (`GITHUB_TOKEN/OWNER/REPO/BRANCH`). Hoy escribe disco local (Vercel es read-only).
-- **Imágenes en prod:** cambiar la subida de `/api/upload` (local) a **Cloudinary** (unsigned upload). Hoy guarda en `public/uploads/`.
-- `NEXT_PUBLIC_SITE_URL` real para SEO/OG/sitemap.
+## ⏳ Contenido real (cuando Kervin lo tenga)
+- Datos reales en `src/content/sitio.json`: WhatsApp/tel/email (hoy `573000000000`), URLs de redes (hoy raíz de instagram/facebook).
+- Fotos reales en `propiedades.json` (hoy `picsum.photos`) — editar desde `/admin` una vez Cloudinary esté listo.
+- Medir **PageSpeed** real en la URL de Vercel.
 
 ## ⚠️ Gotchas conocidos (importantes)
-- **Next.js 16**: tiene breaking changes; antes de tocar APIs, leer `node_modules/next/dist/docs/`. `params` es **asíncrono** en `[slug]`.
-- **CSS no se actualiza en dev**: caché de Turbopack pegada → **borrar `.next` y reiniciar** el dev server (pasó con el dark mode y con rutas nuevas).
-- **`.env.local` se lee solo al arrancar** `npm run dev` → reiniciar tras editarlo.
-- **VS Code de Kervin está ocupado con otro proyecto** → editar `.env.local` con Bloc de notas y **correr/reiniciar el dev server de Umbral en segundo plano** desde la sesión (Next bloquea 2 dev servers del mismo proyecto a la vez).
-- `.env.local` está **gitignored** (no se commitea). Secretos nunca en el chat.
+- **REGLA DE ORO CMS:** tras editar desde `/admin` (local o prod), `git pull --no-rebase --no-edit` ANTES de tocar código local. El CMS edita la copia de GitHub; tu local se desfasa.
+- **`.env.local` local tiene ahora `GITHUB_TOKEN`** → tu `/admin` local commitea a GitHub (no a disco). Es lo esperado.
+- **Next.js 16**: breaking changes; antes de tocar APIs leer `node_modules/next/dist/docs/`. `params` es **asíncrono** en `[slug]`.
+- **Caché de Turbopack pegada**: si el dev tira 500 raros o el CSS no refresca → **borrar `.next` y reiniciar**. Ojo: si el puerto 3000 está ocupado por un server viejo, Next arranca en 3001 (cuidado al probar contra el puerto correcto).
+- **`.env.local` se lee solo al arrancar** `npm run dev` → reiniciar tras editarlo. Está **gitignored** (`.env*`).
 
 ## Comandos
 ```bash
