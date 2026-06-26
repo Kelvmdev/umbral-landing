@@ -24,13 +24,9 @@ export default function Asesor() {
     botonRef.current?.focus();
   }
 
-  // Esc cierra; Tab queda atrapado dentro del panel (focus-trap, tema 08)
+  // Tab queda atrapado dentro del panel (focus-trap, tema 08). Esc se maneja
+  // aparte con un listener global (ver useEffect de arriba).
   function onKeyDownPanel(e) {
-    if (e.key === "Escape") {
-      e.preventDefault();
-      cerrar();
-      return;
-    }
     if (e.key !== "Tab") return;
     const focuseables = panelRef.current?.querySelectorAll(
       'button, textarea, input, a[href], [tabindex]:not([tabindex="-1"])'
@@ -53,9 +49,19 @@ export default function Asesor() {
     finRef.current?.scrollIntoView({ block: "end" });
   }, [mensajes]);
 
-  // Al abrir, enfoca el campo; Esc cierra
+  // Al abrir, enfoca el campo
   useEffect(() => {
     if (abierto) inputRef.current?.focus();
+  }, [abierto]);
+
+  // Esc cierra el chat estés donde estés (no solo con foco dentro del panel)
+  useEffect(() => {
+    if (!abierto) return;
+    const alPresionar = (e) => {
+      if (e.key === "Escape") cerrar();
+    };
+    window.addEventListener("keydown", alPresionar);
+    return () => window.removeEventListener("keydown", alPresionar);
   }, [abierto]);
 
   async function enviar() {
